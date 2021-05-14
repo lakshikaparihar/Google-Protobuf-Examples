@@ -1,3 +1,6 @@
 /grpc
 __pycache__
 *.zip
+/file_download/mkd
+test.*
+main.py
