@@ -8,7 +8,7 @@ service Downloader{
 }
 
 message FilePathDownload{
-    string fpath = 1;
+    string path = 1;
 }
 
 message FilePathUpload{

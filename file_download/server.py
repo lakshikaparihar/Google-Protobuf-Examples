@@ -4,29 +4,20 @@ import main_pb2
 import main_pb2_grpc
 import urllib.request
 import os
+import requests
 from urllib.parse import urlparse
-from google.cloud import storage
-
-
 class Downloader(main_pb2_grpc.DownloaderServicer):
 
-    def googleCloud(self,url):
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cosmic-envoy-313907-2fc47918d007.json"
+    def extract_name(self,url):
         p = urlparse(url)
         path = p.path[1:].split('/', 1)
-        bucket, file_path = path[0], path[1] 
-        storage_client = storage.Client()
-        bucket = storage_client.bucket(bucket)
-        blob = bucket.blob(file_path)
-        blob.download_to_filename(os.path.basename(file_path))
-        return os.path.abspath(file_path)
-
+        file_name = path[1] 
+        return file_name , os.path.abspath(file_name)
 
     def Download(self, request, context):
-        if request.fpath.startswith("https://storage.googleapis.com"):
-            self.lpath=self.googleCloud(request.fpath)
-        #urllib.request.urlretrieve(request.fpath,request.fname)
-        #self.lpath = os.path.abspath(request.fname)
+        r = requests.get(request.path, allow_redirects=True)
+        self.fname , self.lpath = self.extract_name(request.path)
+        open(self.fname, 'wb').write(r.content)
         return main_pb2.FilePathUpload(dpath=self.lpath)
 
 

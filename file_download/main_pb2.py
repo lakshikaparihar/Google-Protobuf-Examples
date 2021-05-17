@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\nmain.proto\"0\n\x10\x46ilePathDownload\x12\r\n\x05\x66path\x18\x01 \x01(\t\x12\r\n\x05\x66name\x18\x02 \x01(\t\"\x1f\n\x0e\x46ilePathUpload\x12\r\n\x05\x64path\x18\x01 \x01(\t2<\n\nDownloader\x12.\n\x08\x44ownload\x12\x11.FilePathDownload\x1a\x0f.FilePathUploadb\x06proto3'
+  serialized_pb=b'\n\nmain.proto\" \n\x10\x46ilePathDownload\x12\x0c\n\x04path\x18\x01 \x01(\t\"\x1f\n\x0e\x46ilePathUpload\x12\r\n\x05\x64path\x18\x01 \x01(\t2<\n\nDownloader\x12.\n\x08\x44ownload\x12\x11.FilePathDownload\x1a\x0f.FilePathUploadb\x06proto3'
 )
 
 
@@ -34,15 +34,8 @@ _FILEPATHDOWNLOAD = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='fpath', full_name='FilePathDownload.fpath', index=0,
+      name='path', full_name='FilePathDownload.path', index=0,
       number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='fname', full_name='FilePathDownload.fname', index=1,
-      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -60,7 +53,7 @@ _FILEPATHDOWNLOAD = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=14,
-  serialized_end=62,
+  serialized_end=46,
 )
 
 
@@ -91,8 +84,8 @@ _FILEPATHUPLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=64,
-  serialized_end=95,
+  serialized_start=48,
+  serialized_end=79,
 )
 
 DESCRIPTOR.message_types_by_name['FilePathDownload'] = _FILEPATHDOWNLOAD
@@ -122,8 +115,8 @@ _DOWNLOADER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=97,
-  serialized_end=157,
+  serialized_start=81,
+  serialized_end=141,
   methods=[
   _descriptor.MethodDescriptor(
     name='Download',
