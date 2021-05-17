@@ -4,3 +4,7 @@ __pycache__
 /file_download/mkd
 test.*
 main.py
+*.json
+*.dat
+*.pkl
+*.joblib

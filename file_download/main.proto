@@ -9,7 +9,6 @@ service Downloader{
 
 message FilePathDownload{
     string fpath = 1;
-    string fname = 2;
 }
 
 message FilePathUpload{
