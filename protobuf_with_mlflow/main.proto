@@ -1,0 +1,20 @@
+// python -m grpc_tools.protoc -I. --grpc_python_out=. .\main.proto
+// protoc -I. --python_out=. .\main.proto
+
+syntax = "proto3";
+
+service Downloader{
+    rpc Download (FilePathDownload) returns (FilePathUpload);
+}
+
+message FilePathDownload{
+    string providerid = 1;
+    string url = 2;
+    string variant=3;
+    string serialization=4;
+    string api_name=5;
+}
+
+message FilePathUpload{
+    string dpath = 1;
+}
