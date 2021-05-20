@@ -22,6 +22,8 @@ class MlflowModelService(main_pb2_grpc.MlflowModelServiceServicer):
     DELIMITER = "_#_"
 
     def extract_name(self,url):
+
+        # url shouldn't end with /
         self._print("Entering extract_name")
         p = urlparse(url)
         path = p.path[1:].split('/', 1)
@@ -36,6 +38,8 @@ class MlflowModelService(main_pb2_grpc.MlflowModelServiceServicer):
         self._print("Entering Loadind Model")
         self.fname,self.lpath  = self.extract_name(url)
         infile = open(repr(self.lpath).strip("'"),'rb')
+
+        #add in validation class ()......................................................
         if serialization.lower() == 'pickle':
             self.model = pickle.load(infile)
         elif serialization.lower() == 'joblib':
@@ -45,7 +49,6 @@ class MlflowModelService(main_pb2_grpc.MlflowModelServiceServicer):
         ##    self.model = keras.models.load_model('./model.pkl')
         self._print ('Loaded Model')
         infile.close()
-        #self.model="Lakshika"
         return self.model,self.fname
         
     def _print(self,str):
@@ -57,7 +60,7 @@ class MlflowModelService(main_pb2_grpc.MlflowModelServiceServicer):
         self._print("Entering Loging model")
         model,modelName=self.load_model(url, serialization)
 
-        # can we avoid setting experiment id
+        # can we avoid setting experiment id ?????????
         mlflow.set_experiment(provider_id)
         registered_model_name =provider_id+self.DELIMITER+api_id+self.DELIMITER+variant
         self._print("Registerd Model Name : "+registered_model_name)
@@ -79,6 +82,7 @@ class MlflowModelService(main_pb2_grpc.MlflowModelServiceServicer):
 
         # add exception handling ..............................................................
         print("Entering the DownloadAndStore function")
+        
         #need to test.....................
         r = requests.get(request.download_url, allow_redirects=True)
         self.fname,self.lpath  = self.extract_name(request.download_url)
