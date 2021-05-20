@@ -10,15 +10,14 @@ service MlflowModelService{
 message StoreModelRequest{
     string user_id = 1;
     string download_url = 2;
-    int32 api_id=3;
+    string api_id=3;
     ModelMetadata metadata =4;
     string comment =5;
 }
 
 message StoreModelResponse{
-    string store_id = 1;
-    string variant = 3;
-    string model_name=4;
+    string run_id = 1;
+    string model_name=2;
 }
 
 message ModelMetadata{
