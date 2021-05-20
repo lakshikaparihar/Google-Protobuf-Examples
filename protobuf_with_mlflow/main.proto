@@ -3,18 +3,27 @@
 
 syntax = "proto3";
 
-service Downloader{
-    rpc Download (FilePathDownload) returns (FilePathUpload);
+service MlflowModelService{
+    rpc DownloadAndStore(StoreModelRequest) returns (StoreModelResponse);
 }
 
-message FilePathDownload{
-    string providerid = 1;
-    string url = 2;
-    string variant=3;
-    string serialization=4;
-    string api_name=5;
+message StoreModelRequest{
+    string user_id = 1;
+    string download_url = 2;
+    int32 api_id=3;
+    ModelMetadata metadata =4;
+    string comment =5;
 }
 
-message FilePathUpload{
-    string dpath = 1;
+message StoreModelResponse{
+    string store_id = 1;
+    string variant = 3;
+    string model_name=4;
+}
+
+message ModelMetadata{
+    string variant =1 ;
+    string variant_version=2;
+    string serialization_library = 3;
+    string serialization_version=4;
 }
