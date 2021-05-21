@@ -103,7 +103,7 @@ class MlflowModelService(main_pb2_grpc.MlflowModelServiceServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=50))
     main_pb2_grpc.add_MlflowModelServiceServicer_to_server(MlflowModelService(),server)
-    server.add_insecure_port('[::]:3000')
+    server.add_insecure_port('[::]:7000')
     print("Starting port .....")
     server.start()
     server.wait_for_termination()
