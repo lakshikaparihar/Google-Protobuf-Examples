@@ -18,6 +18,7 @@ message StoreModelRequest{
 message StoreModelResponse{
     string run_id = 1;
     string model_name=2;
+    string experiment_id=3;
 }
 
 message ModelMetadata{

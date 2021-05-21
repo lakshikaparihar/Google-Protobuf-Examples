@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 import pickle
 import mlflow
 import joblib
-import mlflow.sklearn, mlflow.keras
+import mlflow.sklearn, mlflow.keras, mlflow.xgboost
 from mlflow.tracking import MlflowClient
 #import keras
 
@@ -72,8 +72,10 @@ class MlflowModelService(main_pb2_grpc.MlflowModelServiceServicer):
                 mlflow.sklearn.log_model (model, registered_model_name,registered_model_name=registered_model_name)
             elif variant.lower() == 'keras':
                 mlflow.keras.log_model (model, registered_model_name,registered_model_name=registered_model_name)
+            elif variant.lower() == 'xgboost':
+                mlflow.xgboost.log_model (model, registered_model_name,registered_model_name=registered_model_name)
 
-        return registered_model_name, active_run.info.run_id
+        return registered_model_name, active_run.info.run_id, mlflow.get_experiment_by_name(provider_id).experiment_id
         
     def validate(self,variant,variant_version,serialization,serialization_version,model):
         pass
@@ -92,12 +94,12 @@ class MlflowModelService(main_pb2_grpc.MlflowModelServiceServicer):
         self.validate(request.metadata.variant , request.metadata.variant_version,request.metadata.serialization_library,request.metadata.serialization_version,r)
 
         # logging and storing in mlflow
-        self.modelname,self.runid= self.logModel(request.metadata.variant,request.download_url,request.metadata.serialization_library,request.user_id,request.api_id)
+        self.modelname,self.runid ,self.experiment_id= self.logModel(request.metadata.variant,request.download_url,request.metadata.serialization_library,request.user_id,request.api_id)
         print("Finally returning the value")
 
 
 
-        return main_pb2.StoreModelResponse(model_name=self.modelname,run_id=self.runid)
+        return main_pb2.StoreModelResponse(model_name=self.modelname, run_id=self.runid, experiment_id=self.experiment_id)
 
 
 def serve():
